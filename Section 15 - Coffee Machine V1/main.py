@@ -102,11 +102,3 @@ while not validOrder:
                 resources[ingredient] -= quantityRequired
             print("Here is your order. Thank you for purchase!")
             validOrder = False
-
-        
-        
-        
-        
-    
-
-
