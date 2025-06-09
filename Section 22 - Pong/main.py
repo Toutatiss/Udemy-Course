@@ -31,13 +31,13 @@ screen.update()
 screen.listen()
 screen.onkey(right_paddle.up, "Up")
 screen.onkey(right_paddle.down, "Down")
-screen.onkey(left_paddle.up, "W")
-screen.onkey(left_paddle.down, "S")
+screen.onkey(left_paddle.up, "w")
+screen.onkey(left_paddle.down, "s")
 
 game_running = True
 
-# while game_running:
-#     screen.update()
-#     time.sleep(0.08)
+while game_running:
+    screen.update()
+    time.sleep(0.08)
 
 screen.exitonclick()
