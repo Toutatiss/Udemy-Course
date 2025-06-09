@@ -10,7 +10,7 @@ BOUNDARY = 280
 
 screen = Screen()
 screen.setup(SCREEN_WIDTH, SCREEN_HEIGHT)
-screen.bgcolor("black")
+screen.bgcolor("grey")
 screen.title("Snek")
 screen.tracer(0.0)
 
