@@ -6,7 +6,7 @@ DOWN = 270
 LEFT = 180
 RIGHT = 0
 
-class Paddle():
+class Paddle(Turtle):
     def __init__(self, starting_coords):
         self.STARTING_COORDS = starting_coords
         self.xcor = starting_coords[0][0]

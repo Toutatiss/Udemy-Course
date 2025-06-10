@@ -4,6 +4,7 @@ from turtle import Screen
 from fence import Fence
 from paddle import Paddle
 from ball import Ball
+from scoreboard import Scoreboard
 
 import time
 
@@ -19,6 +20,11 @@ LEFT_X = -HORIZONTAL_BOUNDARY + 25
 RIGHT_PADDLE_STARTING_COORDS = [(RIGHT_X,30), (RIGHT_X, 10), (RIGHT_X, -10)]
 LEFT_PADDLE_STARTING_COORDS = [(LEFT_X,30), (LEFT_X, 10), (LEFT_X, -10)]
 
+RIGHT_SCOREBOARD_COORDS = (50 , VERTICAL_BOUNDARY-60)
+LEFT_SCOREBOARD_COORDS = (-50, VERTICAL_BOUNDARY-60)
+
+STARTING_GAME_SPEED = 0.08
+
 # Create the game scene
 screen = Screen()
 screen.setup(SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -31,6 +37,8 @@ fence = Fence()
 right_paddle = Paddle(RIGHT_PADDLE_STARTING_COORDS)
 left_paddle = Paddle(LEFT_PADDLE_STARTING_COORDS)
 ball = Ball()
+right_scoreboard = Scoreboard(RIGHT_SCOREBOARD_COORDS)
+left_scoreboard = Scoreboard(LEFT_SCOREBOARD_COORDS)
 
 screen.update()
 
@@ -44,8 +52,11 @@ screen.onkeypress(left_paddle.down, "s")
 def detect_paddle_collision(paddle):
     for segment in paddle.segments:
         time_between_bounces = current_time - ball.last_bounced_time
-        if segment.distance(ball) < 25 and time_between_bounces > 0.2:
+        if segment.distance(ball) < 39 and time_between_bounces > 0.2:
             ball.bounce("vertical")
+            return True
+        else:
+            return False
             
 def detect_wall_collision():
     time_between_bounces = current_time - ball.last_bounced_time
@@ -57,23 +68,34 @@ game_running = True
 # Wait a second before starting the ball moving
 time.sleep(1)
 start_time = time.time()
+game_speed = STARTING_GAME_SPEED
 
 while game_running:
     screen.update()
     ball.move()
-    time.sleep(0.05)
+    time.sleep(game_speed)
     
     current_time = time.time()
     
-    detect_paddle_collision(right_paddle)
-    detect_paddle_collision(left_paddle)
+    if detect_paddle_collision(right_paddle) or detect_paddle_collision(left_paddle):
+        game_speed *= 0.9
 
     # Wall collision
     detect_wall_collision()
     
     # Out of bounds
     if ball.xcor() > HORIZONTAL_BOUNDARY or ball.xcor() < -HORIZONTAL_BOUNDARY:
-        pass
+        if ball.xcor() > HORIZONTAL_BOUNDARY: # Left scores
+            left_scoreboard.increase_score()
+        else: # Right scores
+            right_scoreboard.increase_score()
+        
+        # Pause the game for a sec, then reset the ball
+        # time.sleep(2) 
+        ball.goto(0,0)
+        ball.setheading(30)
+        game_speed = STARTING_GAME_SPEED
+        time.sleep(1)
 
 
 screen.exitonclick()

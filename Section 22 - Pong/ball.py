@@ -23,4 +23,6 @@ class Ball(Turtle):
             
         self.setheading(new_heading)
         self.last_bounced_time = time.time()
-        print("boing")
+        
+        # print("boing")
+        
