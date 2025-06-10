@@ -15,7 +15,7 @@ SCREEN_HEIGHT = 600
 VERTICAL_BOUNDARY = SCREEN_HEIGHT/2 - 25
 HORIZONTAL_BOUNDARY = SCREEN_WIDTH / 2
 RIGHT_X = HORIZONTAL_BOUNDARY - 35
-LEFT_X = -HORIZONTAL_BOUNDARY + 25
+LEFT_X = -HORIZONTAL_BOUNDARY + 35
 
 RIGHT_PADDLE_STARTING_COORDS = (RIGHT_X, 0)
 LEFT_PADDLE_STARTING_COORDS = (LEFT_X, 0)
@@ -24,6 +24,8 @@ RIGHT_SCOREBOARD_COORDS = (50 , VERTICAL_BOUNDARY-60)
 LEFT_SCOREBOARD_COORDS = (-50, VERTICAL_BOUNDARY-60)
 
 STARTING_GAME_SPEED = 0.1
+
+STARTING_ANGLE = 50
 
 # Create the game scene
 screen = Screen()
@@ -36,7 +38,7 @@ screen.tracer(0.0)
 fence = Fence()
 right_paddle = Paddle(RIGHT_PADDLE_STARTING_COORDS)
 left_paddle = Paddle(LEFT_PADDLE_STARTING_COORDS)
-ball = Ball()
+ball = Ball(STARTING_ANGLE)
 right_scoreboard = Scoreboard(RIGHT_SCOREBOARD_COORDS)
 left_scoreboard = Scoreboard(LEFT_SCOREBOARD_COORDS)
 
@@ -83,16 +85,14 @@ while game_running:
     detect_wall_collision()
     
     # Out of bounds
-    if ball.xcor() > HORIZONTAL_BOUNDARY or ball.xcor() < -HORIZONTAL_BOUNDARY:
-        if ball.xcor() > HORIZONTAL_BOUNDARY: # Left scores
-            left_scoreboard.increase_score()
-        else: # Right scores
-            right_scoreboard.increase_score()
+    if ball.xcor() > HORIZONTAL_BOUNDARY:   # Left scores
+        left_scoreboard.increase_score()
+    if ball.xcor() < -HORIZONTAL_BOUNDARY: # Right scores
+        right_scoreboard.increase_score()
         
         # Pause the game for a sec, then reset the ball
         # time.sleep(2) 
-        ball.goto(0,0)
-        ball.setheading(30)
+        ball.reset()
         game_speed = STARTING_GAME_SPEED
         time.sleep(1)
 

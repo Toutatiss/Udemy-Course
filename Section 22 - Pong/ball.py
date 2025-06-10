@@ -4,12 +4,12 @@ import time
 MOVE_DISTANCE = 10
 
 class Ball(Turtle):
-    def __init__(self):
+    def __init__(self, starting_angle):
         super().__init__()
         self.penup()
         self.shape("circle")
         self.color("blue")
-        self.setheading(30)
+        self.setheading(starting_angle)
         self.last_bounced_time = 0
         
     def move(self):
@@ -25,4 +25,8 @@ class Ball(Turtle):
         self.last_bounced_time = time.time()
         
         # print("boing")
+        
+    def reset(self):
+        self.goto(0,0)
+        self.bounce("vertical")
         
