@@ -51,7 +51,7 @@ screen.onkeypress(left_paddle.down, "s")
 
 def detect_paddle_collision(paddle):
     time_between_bounces = current_time - ball.last_bounced_time
-    if ball.distance(paddle) < 40 and time_between_bounces > 0.2:
+    if (ball.distance(paddle) < 50 and abs(ball.xcor()) > 340) and time_between_bounces > 0.2:
         ball.bounce("vertical")
         return True
     else:
