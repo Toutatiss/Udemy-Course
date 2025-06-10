@@ -27,14 +27,19 @@ class Paddle():
            self.add_segment(position)
 
     def move(self,direction):
-        # Depending on the direction, set either the top or the bottom segment as the leading segment
-        leading_segment = self.top_segment if direction == UP else self.bottom_segment
-        
-        # Change coordinates of the trailing segments
-        for seg_num in range(len(self.segments)-1,0,-1):
-            new_x = self.segments[seg_num - 1].xcor()
-            new_y = self.segments[seg_num - 1].ycor()
-            self.segments[seg_num].goto(new_x,new_y)
+        # Identify which is the first segment
+        if direction == UP: # The top segment is leading (first one in the array)
+            leading_segment = self.top_segment
+            for seg_num in range(len(self.segments)-1,0,-1):
+                new_x = self.segments[seg_num - 1].xcor()
+                new_y = self.segments[seg_num - 1].ycor()
+                self.segments[seg_num].goto(new_x,new_y)
+        elif direction == DOWN:
+            leading_segment = self.bottom_segment
+            for seg_num in range(0, len(self.segments)-1):
+                new_x = self.segments[seg_num + 1].xcor()
+                new_y = self.segments[seg_num + 1].ycor()
+                self.segments[seg_num].goto(new_x,new_y)
         
         # Move the leading segment
         leading_segment.forward(MOVE_DISTANCE)
@@ -44,7 +49,7 @@ class Paddle():
         self.move(UP)
         
     def down(self):
-        self.top_segment.setheading(DOWN)
+        self.bottom_segment.setheading(DOWN)
         self.move(DOWN)
         
    
