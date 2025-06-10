@@ -9,6 +9,7 @@ RIGHT = 0
 class Paddle():
     def __init__(self, starting_coords):
         self.STARTING_COORDS = starting_coords
+        self.xcor = starting_coords[0][0]
         self.segments = []
         self.create_paddle()
         self.top_segment = self.segments[0]
@@ -27,19 +28,19 @@ class Paddle():
            self.add_segment(position)
 
     def move(self,direction):
-        # Identify which is the first segment
-        if direction == UP: # The top segment is leading (first one in the array)
+        # Idendify leading segment, and define loop order and increment direction
+        if direction == UP:
             leading_segment = self.top_segment
-            for seg_num in range(len(self.segments)-1,0,-1):
-                new_x = self.segments[seg_num - 1].xcor()
-                new_y = self.segments[seg_num - 1].ycor()
-                self.segments[seg_num].goto(new_x,new_y)
+            segment_order = range(len(self.segments)-1,0,-1)
+            seg_increment = -1
         elif direction == DOWN:
             leading_segment = self.bottom_segment
-            for seg_num in range(0, len(self.segments)-1):
-                new_x = self.segments[seg_num + 1].xcor()
-                new_y = self.segments[seg_num + 1].ycor()
-                self.segments[seg_num].goto(new_x,new_y)
+            segment_order = range(0, len(self.segments)-1)
+            seg_increment = 1
+            
+        for seg_num in segment_order:
+            new_y = self.segments[seg_num + seg_increment].ycor()
+            self.segments[seg_num].goto(self.xcor,new_y)
         
         # Move the leading segment
         leading_segment.forward(MOVE_DISTANCE)

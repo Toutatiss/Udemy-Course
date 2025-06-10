@@ -1,8 +1,9 @@
 # Imports
 from turtle import Turtle
 from turtle import Screen
-from paddle import Paddle
 from fence import Fence
+from paddle import Paddle
+from ball import Ball
 
 import time
 
@@ -16,7 +17,7 @@ LEFT_PADDLE_STARTING_COORDS = [(-290,30), (-290, 10), (-290, -10)]
 # Create the game scene
 screen = Screen()
 screen.setup(SCREEN_WIDTH, SCREEN_HEIGHT)
-screen.bgcolor("grey")
+screen.bgcolor("black")
 screen.title("l e t  u s  p l a y  P O N G")
 screen.tracer(0.0)
 
@@ -24,6 +25,7 @@ screen.tracer(0.0)
 fence = Fence()
 right_paddle = Paddle(RIGHT_PADDLE_STARTING_COORDS)
 left_paddle = Paddle(LEFT_PADDLE_STARTING_COORDS)
+ball = Ball()
 
 screen.update()
 
@@ -36,8 +38,12 @@ screen.onkeypress(left_paddle.down, "s")
 
 game_running = True
 
+# Wait a second before starting the ball moving
+time.sleep(1)
+
 while game_running:
     screen.update()
-    time.sleep(0.08)
+    ball.move()
+    time.sleep(0.05)
 
 screen.exitonclick()
