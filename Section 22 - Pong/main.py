@@ -17,13 +17,13 @@ HORIZONTAL_BOUNDARY = SCREEN_WIDTH / 2
 RIGHT_X = HORIZONTAL_BOUNDARY - 35
 LEFT_X = -HORIZONTAL_BOUNDARY + 25
 
-RIGHT_PADDLE_STARTING_COORDS = [(RIGHT_X,30), (RIGHT_X, 10), (RIGHT_X, -10)]
-LEFT_PADDLE_STARTING_COORDS = [(LEFT_X,30), (LEFT_X, 10), (LEFT_X, -10)]
+RIGHT_PADDLE_STARTING_COORDS = (RIGHT_X, 0)
+LEFT_PADDLE_STARTING_COORDS = (LEFT_X, 0)
 
 RIGHT_SCOREBOARD_COORDS = (50 , VERTICAL_BOUNDARY-60)
 LEFT_SCOREBOARD_COORDS = (-50, VERTICAL_BOUNDARY-60)
 
-STARTING_GAME_SPEED = 0.08
+STARTING_GAME_SPEED = 0.1
 
 # Create the game scene
 screen = Screen()
@@ -50,13 +50,12 @@ screen.onkeypress(left_paddle.up, "w")
 screen.onkeypress(left_paddle.down, "s")
 
 def detect_paddle_collision(paddle):
-    for segment in paddle.segments:
-        time_between_bounces = current_time - ball.last_bounced_time
-        if segment.distance(ball) < 39 and time_between_bounces > 0.2:
-            ball.bounce("vertical")
-            return True
-        else:
-            return False
+    time_between_bounces = current_time - ball.last_bounced_time
+    if ball.distance(paddle) < 40 and time_between_bounces > 0.2:
+        ball.bounce("vertical")
+        return True
+    else:
+        return False
             
 def detect_wall_collision():
     time_between_bounces = current_time - ball.last_bounced_time

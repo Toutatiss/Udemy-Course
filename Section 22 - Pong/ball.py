@@ -17,9 +17,9 @@ class Ball(Turtle):
         
     def bounce(self, obstacle_orientation):
         if obstacle_orientation == "vertical":
-            new_heading = (180 - self.heading()) % 360
+            new_heading = (180 - self.heading()) % 360 # Mirror the y component, keep with 360 degrees
         elif obstacle_orientation == "horizontal":
-            new_heading = (-self.heading()) % 360
+            new_heading = (-self.heading()) % 360 # Mirror the x component, keep with 360 degrees
             
         self.setheading(new_heading)
         self.last_bounced_time = time.time()
