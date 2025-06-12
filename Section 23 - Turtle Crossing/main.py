@@ -10,6 +10,7 @@ screen.bgcolor("white")
 screen.tracer(0)
 
 player = Player()
+car_manager = CarManager()
 
 # Listen for key presses
 screen.listen()
