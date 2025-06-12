@@ -7,6 +7,7 @@ FINISH_LINE_Y = 280
 
 class Player(Turtle):
     def __init__(self):
+        # Create turtle
         super().__init__()
         self.shape("turtle")
         self.color("green")
@@ -14,8 +15,12 @@ class Player(Turtle):
         self.goto(STARTING_POSITION)
         self.setheading(90)
         
+        # Other varianbles
+        self.level = 1
+        
     def move_forward(self):
         self.forward(MOVE_DISTANCE)
         if self.ycor() >= FINISH_LINE_Y:
             self.goto(STARTING_POSITION)
+            self.level += 1
         
