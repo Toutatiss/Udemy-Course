@@ -18,5 +18,8 @@ screen.onkey(player.move_forward, "Up")
 
 game_is_on = True
 while game_is_on:
+    car_manager.drive_cars()
+    
     time.sleep(0.1)
     screen.update()
+    
