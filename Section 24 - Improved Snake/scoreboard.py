@@ -8,6 +8,7 @@ class Scoreboard(Turtle):
         super().__init__()
         self.score = 0
         self.high_score = 0
+        self.read_high_score()
         self.color("white")
         self.hideturtle()
         self.penup()
@@ -25,6 +26,15 @@ class Scoreboard(Turtle):
     def reset_game(self):
         if self.score > self.high_score:
             self.high_score = self.score
+            self.write_high_score()
         self.score = 0
         self.update_score()
+        
+    def read_high_score(self):
+        with open("/Users/felka/Documents/Python/Udemy Course/Section 24 - Improved Snake/score.txt", "r") as score_file:
+            self.high_score = int(score_file.read())
+    
+    def write_high_score(self):
+        with open("/Users/felka/Documents/Python/Udemy Course/Section 24 - Improved Snake/score.txt", "w") as score_file:
+            score_file.write(str(self.high_score))
         
