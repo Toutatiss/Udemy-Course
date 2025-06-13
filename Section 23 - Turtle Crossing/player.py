@@ -17,13 +17,17 @@ class Player(Turtle):
         
         # Other varianbles
         self.level = 1
-        self.has_scored = False
         
     def move_forward(self):
         self.forward(MOVE_DISTANCE)
+            
+    def is_at_finish_line(self):
         if self.ycor() >= FINISH_LINE_Y:
             self.goto(STARTING_POSITION)
             self.level += 1
-            self.has_scored = True
+            return True
+        else:
+            return False
+        
             
         

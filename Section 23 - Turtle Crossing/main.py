@@ -25,10 +25,9 @@ while game_is_on:
     if car_manager.has_collided(player):
         game_is_on = False # Game over!
         
-    if player.has_scored:
+    if player.is_at_finish_line():
         scoreboard.increase_level()
         scoreboard.update_level()
-        player.has_scored = False
     
     time.sleep(0.1)
     screen.update()
