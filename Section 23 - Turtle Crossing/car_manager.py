@@ -49,3 +49,10 @@ class CarManager:
                 car.clear()
                 self.cars.remove(car)
                 del car
+
+    def has_collided(self, player):
+        for car in self.cars:
+            if car.distance(player) < 20:
+                return True
+        return False
+        
