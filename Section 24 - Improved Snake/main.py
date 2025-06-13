@@ -10,7 +10,7 @@ BOUNDARY = 280
 
 screen = Screen()
 screen.setup(SCREEN_WIDTH, SCREEN_HEIGHT)
-screen.bgcolor("grey")
+screen.bgcolor("black")
 screen.title("Snek")
 screen.tracer(0.0)
 
@@ -23,6 +23,11 @@ screen.onkey(snake.up, "Up")
 screen.onkey(snake.down, "Down")
 screen.onkey(snake.left, "Left")
 screen.onkey(snake.right, "Right")
+
+
+def reset_game():
+    scoreboard.reset_game()
+    snake.reset_snake()
 
 game_running = True
 
@@ -39,13 +44,12 @@ while game_running:
 
     # Detect collision with wall
     if snake.head.xcor() > BOUNDARY or snake.head.xcor() < -BOUNDARY or snake.head.ycor() > BOUNDARY or snake.head.ycor() < -BOUNDARY:
-        game_running = False
+        reset_game()
+        
         
     # Detect collision with tail
     for segment in snake.segments[1:]:
         if snake.head.distance(segment) < 10:
-            game_running = False
-        
-scoreboard.game_over()
-        
+            reset_game()
+
 screen.exitonclick()
