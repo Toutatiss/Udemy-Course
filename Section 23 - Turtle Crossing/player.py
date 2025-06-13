@@ -23,6 +23,7 @@ class Player(Turtle):
             
     def is_at_finish_line(self):
         if self.ycor() >= FINISH_LINE_Y:
+            # Return to the start
             self.goto(STARTING_POSITION)
             self.level += 1
             return True

@@ -31,14 +31,7 @@ class CarManager:
         STARTING_Y_COR = random.randint(-270, 270)
         new_car.goto(STARTING_X_COR, STARTING_Y_COR)
         self.cars.append(new_car)
-        
-    def drive_cars(self, level):
-        for car in self.cars:
-            car.forward(STARTING_MOVE_DISTANCE + MOVE_INCREMENT * (level - 1))
-            if car.xcor() < -300:
-                self.cars.pop(car)
-                
-                
+          
     def drive_cars(self, level):
         for car in self.cars[:]:  # Iterate over a shallow copy, because removing a car otherwise could cause a car to be missed
             car.forward(STARTING_MOVE_DISTANCE + MOVE_INCREMENT * (level - 1))
