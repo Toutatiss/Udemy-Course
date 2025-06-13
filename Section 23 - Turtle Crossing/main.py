@@ -23,7 +23,7 @@ while game_is_on:
     car_manager.drive_cars(player.level)
 
     if car_manager.has_collided(player):
-        print("rip")
+        game_is_on = False # Game over!
         
     if player.has_scored:
         scoreboard.increase_level()
@@ -33,3 +33,7 @@ while game_is_on:
     time.sleep(0.1)
     screen.update()
     
+# Game over:
+scoreboard.game_over()
+
+screen.exitonclick()
