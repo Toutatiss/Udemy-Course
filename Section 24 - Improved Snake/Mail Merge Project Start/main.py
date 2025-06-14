@@ -3,15 +3,17 @@
 #Replace the [name] placeholder with the actual name.
 #Save the letters in the folder "ReadyToSend".
 
+PATH = "/Users/felka/Documents/Python/Udemy Course/Section 24 - Improved Snake/Mail Merge Project Start"
+
 # Get a list of names
-with open("/Users/felka/Documents/Python/Udemy Course/Section 24 - Improved Snake/Mail Merge Project Start/Input/Names/invited_names.txt", "r") as name_file:
+with open(f"{PATH}/Input/Names/invited_names.txt", "r") as name_file: # An idea about shortening the line for readability. Maybe Include each one as their own path.
     name_list = name_file.readlines()
     
 # print(name_list)
     
 # Clean up name list
-for i in range(len(name_list)):
-    name_list[i] = name_list[i].strip()
+# for i in range(len(name_list)):
+#     name_list[i] = name_list[i].strip()
 
 # print(name_list)
 
@@ -19,6 +21,7 @@ for i in range(len(name_list)):
 with open("/Users/felka/Documents/Python/Udemy Course/Section 24 - Improved Snake/Mail Merge Project Start/Input/Letters/starting_letter.txt","r") as letter_file:
     letter_contents = letter_file.read()
     for name in name_list:
+        name = name.strip()
         custom_letter_text = letter_contents.replace("[name]",name)
         with open(f"/Users/felka/Documents/Python/Udemy Course/Section 24 - Improved Snake/Mail Merge Project Start/Output/ReadyToSend/Letter for {name}", "w") as new_letter:
             new_letter.write(custom_letter_text)
