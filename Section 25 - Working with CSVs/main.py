@@ -52,3 +52,16 @@ monday = data[data.day == "Monday"]
 print(monday.condition)
 
 # Get Monday's temperature in farenheit
+monday_temp_c = monday.temp[0]
+monday_temp_f = (monday_temp_c * 9/5) + 32
+print(monday_temp_f)
+
+# Create dataframe from scratch
+data_dict = {
+    "students": ["Amy", "Jack", "Angela"],
+    "scores": [70, 80, 90]
+}
+
+data = pandas.DataFrame(data_dict)
+print(data_dict)
+data.to_csv("example_file.csv")
